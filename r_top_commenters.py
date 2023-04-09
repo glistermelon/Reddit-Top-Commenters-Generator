@@ -12,9 +12,7 @@ class Post():
         self.subreddit = subreddit
 
 class Comment():
-    total = 0
     def __init__(self,comment):
-        Comment.total += 1
         self.author = comment['author']
         self.score = comment['score']
         self.time = comment['created_utc']
