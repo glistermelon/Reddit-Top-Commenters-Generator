@@ -41,13 +41,13 @@ def get_posts(*,after,before,subreddit):
     data = []
     while True:
         fail = True
-        res = requests.get(f"https://arctic-shift.photon-reddit.com/api/posts/search?size=500&sort=created_utc&sort_type=asc&subreddit={subreddit}&after={after}&before={before}")
+        res = requests.get(f"https://arctic-shift.photon-reddit.com/api/posts/search?limit=100&sort=asc&subreddit={subreddit}&after={after}&before={before}")
         while fail:
             try:
                 chunk = json.loads(res.content)['data']
                 fail = False
             except:
-                res = requests.get(f"https://arctic-shift.photon-reddit.com/api/posts/search?size=500&sort=created_utc&sort_type=asc&subreddit={subreddit}&after={after}&before={before}")
+                res = requests.get(f"https://arctic-shift.photon-reddit.com/api/posts/search?limit=100&sort=asc&subreddit={subreddit}&after={after}&before={before}")
                 # To account for timeout errors and rate limiting errors
         for post in chunk:
             data.append(Post(post,subreddit=subreddit))
